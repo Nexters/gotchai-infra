@@ -18,12 +18,27 @@ dependency "vpc" {
 inputs = {
   name   = "gotchai-server-dev"
   vpc_id = dependency.vpc.outputs.vpc_id
+
   ingress_with_cidr_blocks = [
     {
       from_port   = 22
       to_port     = 22
       protocol    = "tcp"
       description = "SSH"
+      cidr_blocks = "0.0.0.0/0"
+    },
+    {
+      from_port   = 6379
+      to_port     = 6379
+      protocol    = "tcp"
+      description = "Redis"
+      cidr_blocks = "0.0.0.0/0"
+    },
+    {
+      from_port   = 3306
+      to_port     = 3306
+      protocol    = "tcp"
+      description = "MySQL"
       cidr_blocks = "0.0.0.0/0"
     }
   ]
@@ -33,6 +48,20 @@ inputs = {
       to_port     = 0
       protocol    = "-1"
       description = "Allow all outbound traffic"
+      cidr_blocks = "0.0.0.0/0"
+    },
+    {
+      from_port   = 6379
+      to_port     = 6379
+      protocol    = "tcp"
+      description = "Redis"
+      cidr_blocks = "0.0.0.0/0"
+    },
+    {
+      from_port   = 3306
+      to_port     = 3306
+      protocol    = "tcp"
+      description = "MySQL"
       cidr_blocks = "0.0.0.0/0"
     }
   ]
