@@ -1,0 +1,87 @@
+name: Deploy infra on AWS
+on:
+  push:
+    branches:
+    - prod
+    - dev
+env:
+  AWS_REGION: ap-northeast-2
+  TERRAFORM_VERSION: 1.12.2
+  TERRAGRUNT_VERSION: 0.83.2
+jobs:
+  deploy-infra:
+    name: Deploy infra
+    runs-on: ubuntu-latest
+    environment: ${{ github.ref_name }}
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v4
+    - name: Configure AWS credentials
+      uses: aws-actions/configure-aws-credentials@v1
+      with:
+        aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+        aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+        aws-region: ${{ env.AWS_REGION }}
+    - name: Setup Terraform
+      uses: hashicorp/setup-terraform@v1.2.1
+      with:
+        terraform_version: ${{ env.TERRAFORM_VERSION }}
+        terraform_wrapper: false
+    - name: Install Terragrunt
+      run: |
+        curl -L https://github.com/gruntwork-io/terragrunt/releases/download/v${{ env.TERRAGRUNT_VERSION }}/terragrunt_linux_amd64 -o terragrunt
+        chmod +x terragrunt
+        sudo mv terragrunt /usr/local/bin/terragrunt
+    - name: Initialize infra
+      run: |
+        cd env/${{ github.ref_name }}
+        terragrunt init
+    - name: Plan infra
+      run: |
+        cd env/${{ github.ref_name }}
+        terragrunt run-all plan
+    - name: Apply infra
+      run: |
+        cd env/${{ github.ref_name }}
+        terragrunt run-all apply --non-interactive
+  notify-discord:
+    name: Notify Discord
+    runs-on: ubuntu-latest
+    needs: deploy-infra
+    steps:
+    - name: Send Discord notification
+      run: |
+        curl -X POST -H "Content-Type: application/json" -d '{
+          "username": "GitHub Actions",
+          "avatar_url": "https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png",
+          "embeds": [
+            {
+              "title": "**${{ github.ref_name == 'prod' && '프로덕션' || '개발' }} 환경 배포 성공**",
+              "description": "프로젝트가 성공적으로 배포되었습니다.",
+              "color": 3066993,
+              "fields": [
+                {
+                  "name": "Repository",
+                  "value": "[${{ github.repository }}](https://github.com/${{ github.repository }})",
+                  "inline": true
+                },
+                {
+                  "name": "Branch",
+                  "value": "${{ github.ref_name }}",
+                  "inline": true
+                },
+                {
+                  "name": "Commit",
+                  "value": "[${{ github.event.head_commit.message }}](${{ github.event.head_commit.url }})",
+                  "inline": true
+                },
+                {
+                  "name": "Author",
+                  "value": "[${{ github.actor }}](${{ github.event.sender.html_url }})",
+                  "inline": true
+                } 
+              ],
+              "timestamp": "${{ github.event.workflow_run.updated_at }}"
+            }
+          ]
+        }' ${{ secrets.DISCORD_WEBHOOK_URL }}
