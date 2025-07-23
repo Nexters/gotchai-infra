@@ -8,5 +8,8 @@ terraform {
 
 inputs = {
   name = "github-actions"
-  policy_arns = ["arn:aws:iam::aws:policy/AmazonS3FullAccess"]
+  policy_arns = [
+    "arn:aws:iam::aws:policy/AmazonEC2ContainerRegistryPullOnly",
+    "arn:aws:iam::aws:policy/AmazonS3FullAccess"
+  ]
 }
