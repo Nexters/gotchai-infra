@@ -29,10 +29,10 @@ dependency "security_group" {
 }
 
 inputs = {
-  name     = "gotchai-dev"
-  subnets  = dependency.vpc.outputs.public_subnets
-  security_groups = [dependency.security_group.outputs.security_group_id]
-  internal = false
+  name       = "gotchai-alb-dev"
+  subnet_ids = dependency.vpc.outputs.public_subnet_ids
+  security_group_ids = [dependency.security_group.outputs.security_group_id]
+  internal   = false
   listener = [
     {
       instance_port     = 8080
@@ -48,5 +48,5 @@ inputs = {
     unhealthy_threshold = 2
     timeout             = 5
   }
-  insatnces = dependency.ec2.outputs.instance_ids
+  instance_ids = dependency.ec2.outputs.instance_ids
 }
