@@ -14,6 +14,6 @@ dependency "github-actions-iam" {
 }
 
 inputs = {
-  repository_name = "gotchai-server-dev"
-  repository_read_write_access_arns = [dependency.github-actions-iam.outputs.arn]
+  name = "gotchai-server-dev"
+  access_arns = [dependency.github-actions-iam.outputs.arn]
 }

@@ -9,8 +9,7 @@ terraform {
 dependency "vpc" {
   config_path = "../../vpc"
   mock_outputs = {
-    vpc_id = "mock-vpc"
-    public_subnets = ["mock-public-subnet-1", "mock-public-subnet-2"]
+    public_subnet_ids = ["mock-public-subnet-1", "mock-public-subnet-2"]
   }
 }
 
@@ -24,7 +23,7 @@ dependency "ec2" {
 dependency "security_group" {
   config_path = "../security-group"
   mock_outputs = {
-    security_group_id = "mock_security_group"
+    security_group_id = "mock-security-group"
   }
 }
 

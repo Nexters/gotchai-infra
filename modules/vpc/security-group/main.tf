@@ -3,8 +3,8 @@ module "security-group" {
 
   name                     = var.name
   vpc_id                   = var.vpc_id
-  ingress_with_cidr_blocks = var.ingress_with_cidr_blocks
-  egress_with_cidr_blocks  = var.egress_with_cidr_blocks
+  ingress_with_cidr_blocks = var.ingress
+  egress_with_cidr_blocks  = var.egress
 
   tags = {
     CreatedBy   = "Terraform"
