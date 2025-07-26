@@ -16,26 +16,14 @@ dependency "vpc" {
 }
 
 inputs = {
-  name   = "gotchai-server-dev"
+  name   = "gotchai-alb-dev"
   vpc_id = dependency.vpc.outputs.vpc_id
 
   ingress_with_cidr_blocks = [
     {
-      from_port   = 22
-      to_port     = 22
-      protocol    = "tcp"
-      cidr_blocks = "0.0.0.0/0"
-    },
-    {
-      from_port   = 6379
-      to_port     = 6379
-      protocol    = "tcp"
-      cidr_blocks = "0.0.0.0/0"
-    },
-    {
-      from_port   = 3306
-      to_port     = 3306
-      protocol    = "tcp"
+      from_port   = 8080
+      to_port     = 8080
+      protocol    = "TCP"
       cidr_blocks = "0.0.0.0/0"
     }
   ]
@@ -47,15 +35,9 @@ inputs = {
       cidr_blocks = "0.0.0.0/0"
     },
     {
-      from_port   = 6379
-      to_port     = 6379
-      protocol    = "tcp"
-      cidr_blocks = "0.0.0.0/0"
-    },
-    {
-      from_port   = 3306
-      to_port     = 3306
-      protocol    = "tcp"
+      from_port   = 8080
+      to_port     = 8080
+      protocol    = "TCP"
       cidr_blocks = "0.0.0.0/0"
     }
   ]
