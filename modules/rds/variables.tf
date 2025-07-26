@@ -18,9 +18,8 @@ variable "username" {
   type = string
 }
 
-variable "password" {
+variable "db_name" {
   type = string
-  sensitive = true
 }
 
 variable "allocated_storage" {
