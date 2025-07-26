@@ -1,8 +1,12 @@
-variable "name" {
+variable "identifier" {
   type = string
 }
 
 variable "engine" {
+  type = string
+}
+
+variable "major_engine_version" {
   type = string
 }
 
@@ -14,11 +18,7 @@ variable "instance_class" {
   type = string
 }
 
-variable "username" {
-  type = string
-}
-
-variable "db_name" {
+variable "family" {
   type = string
 }
 
@@ -26,12 +26,16 @@ variable "allocated_storage" {
   type = number
 }
 
-variable "storage_type" {
+variable "db_name" {
   type = string
 }
 
-variable "subnet_id" {
+variable "username" {
   type = string
+}
+
+variable "subnet_ids" {
+  type = list(string)
 }
 
 variable "vpc_security_group_ids" {
@@ -40,12 +44,13 @@ variable "vpc_security_group_ids" {
 }
 
 variable "publicly_accessible" {
-  type = bool
+  type    = bool
   default = false
-} 
+}
 
 variable "env" {
   type = string
+
   validation {
     condition = contains(["dev", "prod"], var.env)
     error_message = "Invalid env value. Allowed values are: dev, prod."

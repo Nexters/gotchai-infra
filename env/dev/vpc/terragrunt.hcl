@@ -13,6 +13,6 @@ inputs = {
     "ap-northeast-2a",
     "ap-northeast-2b"
   ]
-  subnet_count       = 2
+  subnet_count       = 4
   enable_nat_gateway = false
 }
