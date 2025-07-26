@@ -6,7 +6,7 @@ variable "cidr" {
   type = string
 }
 
-variable "azs" {
+variable "availability_zones" {
   type = list(string)
 }
 
@@ -19,8 +19,9 @@ variable "subnet_count" {
   }
 }
 
-variable "enable_nat_gateway" {
-  type = bool
+variable "enable_nat" {
+  type    = bool
+  default = false
 }
 
 variable "env" {

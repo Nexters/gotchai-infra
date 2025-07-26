@@ -2,16 +2,16 @@ variable "name" {
   type = string
 }
 
-variable "subnets" {
+variable "subnet_ids" {
   type = list(string)
 }
 
-variable "security_groups" {
+variable "security_group_ids" {
   type = list(string)
   default = []
 }
 
-variable "internal" {
+variable "is_internal" {
   type    = bool
   default = false
 }
@@ -35,7 +35,7 @@ variable "health_check" {
   })
 }
 
-variable "instances" {
+variable "instance_ids" {
   type = list(string)
   default = []
 }

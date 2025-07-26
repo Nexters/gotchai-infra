@@ -1,8 +1,8 @@
-variable "repository_name" {
+variable "name" {
   type = string
 }
 
-variable "repository_read_write_access_arns" {
+variable "access_arns" {
   type = list(string)
   default = []
 }

@@ -9,10 +9,10 @@ terraform {
 inputs = {
   name = "gotchai-dev"
   cidr = "192.168.0.0/16"
-  azs = [
+  availability_zones = [
     "ap-northeast-2a",
     "ap-northeast-2b"
   ]
-  subnet_count       = 4
-  enable_nat_gateway = false
+  subnet_count = 4
+  enable_nat   = false
 }

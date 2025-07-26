@@ -7,9 +7,9 @@ terraform {
 }
 
 inputs = {
-  role_name = "ServerContainerRole"
-  trusted_role_services = ["ec2.amazonaws.com"]
-  custom_role_policy_arns = [
+  name = "ServerContainerRole"
+  services = ["ec2.amazonaws.com"]
+  policy_arns = [
     "arn:aws:iam::aws:policy/AmazonEC2ContainerRegistryPullOnly",
     "arn:aws:iam::aws:policy/AmazonS3ReadOnlyAccess"
   ]

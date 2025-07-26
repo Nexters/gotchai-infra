@@ -6,7 +6,7 @@ variable "vpc_id" {
   type = string
 }
 
-variable "ingress_with_cidr_blocks" {
+variable "ingress" {
   type = list(object({
     from_port   = number
     to_port     = number
@@ -16,7 +16,7 @@ variable "ingress_with_cidr_blocks" {
   default = []
 }
 
-variable "egress_with_cidr_blocks" {
+variable "egress" {
   type = list(object({
     from_port   = number
     to_port     = number

@@ -1,12 +1,12 @@
-variable "role_name" {
+variable "name" {
   type = string
 }
 
-variable "trusted_role_services" {
+variable "services" {
   type = list(string)
 }
 
-variable "custom_role_policy_arns" {
+variable "policy_arns" {
   type = list(string)
 }
 

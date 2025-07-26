@@ -1,19 +1,24 @@
+locals {
+  major_engine_version = join(".", slice(split(".", var.engine_version), 0, 2))
+}
+
 module "rds" {
   source = "terraform-aws-modules/rds/aws"
 
-  identifier             = var.identifier
+  identifier             = var.name
   engine                 = var.engine
-  major_engine_version   = var.major_engine_version
   engine_version         = var.engine_version
+  major_engine_version   = local.major_engine_version
   instance_class         = var.instance_class
   allocated_storage      = var.allocated_storage
   db_name                = var.db_name
   username               = var.username
-  family                 = var.family
+  create_db_subnet_group = true
+  family = join("", [var.engine, local.major_engine_version])
   subnet_ids             = var.subnet_ids
+  vpc_security_group_ids = var.security_group_ids
+  publicly_accessible    = var.is_public
   deletion_protection    = true
-  vpc_security_group_ids = var.vpc_security_group_ids
-  publicly_accessible    = var.publicly_accessible
 
   tags = {
     CreatedBy   = "Terraform"

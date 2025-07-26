@@ -24,7 +24,7 @@ variable "iam_instance_profile" {
   nullable = true
 }
 
-variable "associate_public_ip_address" {
+variable "is_public" {
   type    = bool
   default = false
 }
@@ -34,7 +34,7 @@ variable "key_name" {
   nullable = true
 }
 
-variable "vpc_security_group_ids" {
+variable "security_group_ids" {
   type = list(string)
   default = []
 }

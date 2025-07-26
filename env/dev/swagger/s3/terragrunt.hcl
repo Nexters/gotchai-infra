@@ -7,7 +7,7 @@ terraform {
 }
 
 inputs = {
-  bucket                   = "gotchai-api-docs"
+  name                     = "gotchai-api-docs"
   acl                      = "private"
   control_object_ownership = true
   object_ownership         = "ObjectWriter"
