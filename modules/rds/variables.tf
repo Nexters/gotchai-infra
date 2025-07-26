@@ -1,12 +1,8 @@
-variable "identifier" {
+variable "name" {
   type = string
 }
 
 variable "engine" {
-  type = string
-}
-
-variable "major_engine_version" {
   type = string
 }
 
@@ -15,10 +11,6 @@ variable "engine_version" {
 }
 
 variable "instance_class" {
-  type = string
-}
-
-variable "family" {
   type = string
 }
 
@@ -38,12 +30,12 @@ variable "subnet_ids" {
   type = list(string)
 }
 
-variable "vpc_security_group_ids" {
+variable "security_group_ids" {
   type = list(string)
   default = []
 }
 
-variable "publicly_accessible" {
+variable "is_public" {
   type    = bool
   default = false
 }
