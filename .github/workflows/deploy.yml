@@ -35,15 +35,11 @@ jobs:
     - name: Initialize infra
       run: |
         cd env/${{ github.ref_name }}
-        terragrunt init
-    - name: Plan infra
-      run: |
-        cd env/${{ github.ref_name }}
-        terragrunt run-all plan
+        terragrunt init --backend-bootstrap
     - name: Apply infra
       run: |
         cd env/${{ github.ref_name }}
-        terragrunt run-all apply --non-interactive
+        terragrunt apply --all --non-interactive
   notify-discord:
     name: Notify Discord
     runs-on: ubuntu-latest
