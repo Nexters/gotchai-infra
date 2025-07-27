@@ -13,28 +13,24 @@ dependency "vpc" {
   }
 }
 
+# dependency "security-group" {
+#   config_path = "../../server/security-group"
+#   mock_outputs = {
+#     id = "gotchai-security-group"
+#   }
+# }
+
 inputs = {
-  name   = "gotchai-dev-server-sg"
+  name   = "gotchai-dev-db-sg"
   vpc_id = dependency.vpc.outputs.vpc_id
 
   ingress = [
-    {
-      from_port   = 22
-      to_port     = 22
-      protocol    = "TCP"
-      cidr_blocks = "0.0.0.0/0"
-    },
-    {
-      from_port   = 6379
-      to_port     = 6379
-      protocol    = "TCP"
-      cidr_blocks = "0.0.0.0/0"
-    },
     {
       from_port   = 3306
       to_port     = 3306
       protocol    = "TCP"
       cidr_blocks = "0.0.0.0/0"
+      # source_security_group_id = dependency.security-group.outputs.id
     }
   ]
   egress = [

@@ -12,6 +12,7 @@ module "ec2_instance" {
   key_name                    = var.key_name
   vpc_security_group_ids      = var.security_group_ids
   create_security_group       = var.create_security_group
+  user_data                   = var.user_data
 
   tags = {
     CreatedBy   = "Terraform"

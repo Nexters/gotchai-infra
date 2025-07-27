@@ -7,7 +7,7 @@ terraform {
 }
 
 inputs = {
-  name = "gotchai-dev"
+  name = "gotchai-dev-vpc"
   cidr = "192.168.0.0/16"
   availability_zones = [
     "ap-northeast-2a",

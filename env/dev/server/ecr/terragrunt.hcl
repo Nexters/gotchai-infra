@@ -9,11 +9,11 @@ terraform {
 dependency "github-actions-iam" {
   config_path = "../../github-actions/iam"
   mock_outputs = {
-    arn = "mock-arn"
+    arn = "arn:aws:iam::123456789012:user/github-actions"
   }
 }
 
 inputs = {
-  name = "gotchai-server-dev"
+  name = "gotchai-dev-server"
   access_arns = [dependency.github-actions-iam.outputs.arn]
 }

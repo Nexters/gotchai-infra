@@ -26,6 +26,16 @@ variable "egress" {
   default = []
 }
 
+variable "ingress_with_security_group" {
+  type = list(object({
+    from_port                = number
+    to_port                  = number
+    protocol                 = string
+    source_security_group_id = string
+  }))
+  default = []
+}
+
 variable "env" {
   type = string
 

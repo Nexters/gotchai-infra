@@ -9,12 +9,19 @@ terraform {
 dependency "vpc" {
   config_path = "../../vpc"
   mock_outputs = {
-    private_subnet_ids = ["mock-private-subnet-1", "mock-private-subnet-2"]
+    public_subnet_ids = ["gotchai-private-subnet-1", "gotchai-private-subnet-2"]
+  }
+}
+
+dependency "security-group" {
+  config_path = "../security-group"
+  mock_outputs = {
+    id = "gotchai-security-group"
   }
 }
 
 inputs = {
-  name              = "gotchai-dev"
+  name              = "gotchai-dev-db"
   engine            = "mysql"
   engine_version    = "8.4.3"
   instance_class    = "db.t3.micro"
@@ -22,6 +29,7 @@ inputs = {
   db_name           = "gotchai"
   allocated_storage = 20
   storage_type      = "gp2"
-  subnet_ids        = dependency.vpc.outputs.private_subnet_ids
   is_public         = true
+  subnet_ids        = dependency.vpc.outputs.public_subnet_ids
+  security_group_ids = [dependency.security-group.outputs.id]
 }
