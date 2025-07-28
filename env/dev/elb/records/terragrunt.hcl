@@ -1,4 +1,4 @@
-include {
+include "root" {
   path = find_in_parent_folders()
 }
 
@@ -7,7 +7,7 @@ terraform {
 }
 
 dependency "alb" {
-  config_path = "../../elb/alb"
+  config_path = "../alb"
   mock_outputs = {
     dns_name = "gothcai-ai.com"
     zone_id  = "GOTCHAI"
@@ -15,7 +15,7 @@ dependency "alb" {
 }
 
 dependency "zone" {
-  config_path = "../zone"
+  config_path = "${get_parent_terragrunt_dir()}/../../global/domain/zone"
   mock_outputs = {
     zone_name = "gotchai-ai.com"
   }

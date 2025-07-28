@@ -1,13 +1,13 @@
-include {
+include "root" {
   path = find_in_parent_folders()
 }
 
 terraform {
-  source = "${get_parent_terragrunt_dir()}/../../modules/vpc"
+  source = "${get_parent_terragrunt_dir()}/../modules/vpc"
 }
 
 inputs = {
-  name = "gotchai-dev-vpc"
+  name = "gotchai-vpc"
   cidr = "192.168.0.0/16"
   availability_zones = [
     "ap-northeast-2a",

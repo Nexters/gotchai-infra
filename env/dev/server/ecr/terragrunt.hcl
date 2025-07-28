@@ -1,4 +1,4 @@
-include {
+include "root" {
   path = find_in_parent_folders()
 }
 
@@ -7,13 +7,13 @@ terraform {
 }
 
 dependency "github-actions-iam" {
-  config_path = "../../github-actions/iam"
+  config_path = "${get_parent_terragrunt_dir()}/../../global/github-actions/iam"
   mock_outputs = {
     arn = "arn:aws:iam::123456789012:user/github-actions"
   }
 }
 
 inputs = {
-  name = "gotchai-dev-server"
+  name        = "gotchai-dev-server"
   access_arns = [dependency.github-actions-iam.outputs.arn]
 }
