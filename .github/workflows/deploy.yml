@@ -1,4 +1,4 @@
-name: Deploy infra on AWS
+name: Deploy infra
 on:
   push:
     branches:
@@ -34,12 +34,15 @@ jobs:
         sudo mv terragrunt /usr/local/bin/terragrunt
     - name: Initialize infra
       run: |
+        terragrunt init --all --backend-bootstrap --non-interactive
+    - name: Plan infra
+      run: |
         cd env/${{ github.ref_name }}
-        terragrunt init --backend-bootstrap
+        terragrunt plan --all --non-interactive --queue-include-external
     - name: Apply infra
       run: |
         cd env/${{ github.ref_name }}
-        terragrunt apply --all --non-interactive
+        terragrunt apply --all --non-interactive --queue-include-external
   notify-discord:
     name: Notify Discord
     runs-on: ubuntu-latest
@@ -68,7 +71,7 @@ jobs:
                 },
                 {
                   "name": "Commit",
-                  "value": "[$(git log -${{ github.sha }} --pretty=%s)](https://github.com/${{ github.repository }}/commit/${{ github.sha }})",
+                  "value": "[$(git log -1 --pretty=%s)](https://github.com/${{ github.repository }}/commit/${{ github.sha }})",
                   "inline": true
                 },
                 {
