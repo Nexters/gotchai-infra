@@ -1,4 +1,4 @@
-include {
+include "root" {
   path = find_in_parent_folders()
 }
 
@@ -7,15 +7,15 @@ terraform {
 }
 
 dependency "vpc" {
-  config_path = "../../vpc"
+  config_path = "${get_parent_terragrunt_dir()}/../../global/vpc"
   mock_outputs = {
-    vpc_id = "gotchai-vpc"
+    vpc_id            = "gotchai-vpc"
     public_subnet_ids = ["gotchai-public-subnet-1", "mock-public-subnet-2"]
   }
 }
 
 dependency "acm" {
-  config_path = "../../acm"
+  config_path = "${get_parent_terragrunt_dir()}/../../global/acm"
   mock_outputs = {
     arn = "arn:aws:acm:ap-northeast-2:123456789012:certificate/gotchai"
   }
@@ -36,9 +36,9 @@ dependency "security_group" {
 }
 
 inputs = {
-  name       = "gotchai-dev-alb"
-  vpc_id     = dependency.vpc.outputs.vpc_id
-  subnet_ids = dependency.vpc.outputs.public_subnet_ids
+  name               = "gotchai-dev-alb"
+  vpc_id             = dependency.vpc.outputs.vpc_id
+  subnet_ids         = dependency.vpc.outputs.public_subnet_ids
   security_group_ids = [dependency.security_group.outputs.id]
   listeners = {
     server-http = {

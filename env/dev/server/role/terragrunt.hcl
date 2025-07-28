@@ -1,4 +1,4 @@
-include {
+include "root" {
   path = find_in_parent_folders()
 }
 
@@ -7,7 +7,7 @@ terraform {
 }
 
 inputs = {
-  name = "ServerContainerRole"
+  name     = "ServerContainerRole"
   services = ["ec2.amazonaws.com"]
   policy_arns = [
     "arn:aws:iam::aws:policy/AmazonEC2ContainerRegistryPullOnly",

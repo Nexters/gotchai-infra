@@ -1,9 +1,9 @@
-include {
+include "root" {
   path = find_in_parent_folders()
 }
 
 terraform {
-  source = "${get_parent_terragrunt_dir()}/../../modules/vpc/security-group"
+  source = "${get_parent_terragrunt_dir()}/../modules/vpc/security-group"
 }
 
 dependency "vpc" {
@@ -13,15 +13,8 @@ dependency "vpc" {
   }
 }
 
-# dependency "security-group" {
-#   config_path = "../../server/security-group"
-#   mock_outputs = {
-#     id = "gotchai-security-group"
-#   }
-# }
-
 inputs = {
-  name   = "gotchai-dev-db-sg"
+  name   = "gotchai-db-sg"
   vpc_id = dependency.vpc.outputs.vpc_id
 
   ingress = [
@@ -30,7 +23,6 @@ inputs = {
       to_port     = 3306
       protocol    = "TCP"
       cidr_blocks = "0.0.0.0/0"
-      # source_security_group_id = dependency.security-group.outputs.id
     }
   ]
   egress = [

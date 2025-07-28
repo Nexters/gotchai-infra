@@ -1,4 +1,4 @@
-include {
+include "root" {
   path = find_in_parent_folders()
 }
 
@@ -7,7 +7,7 @@ terraform {
 }
 
 dependency "vpc" {
-  config_path = "../../vpc"
+  config_path = "${get_parent_terragrunt_dir()}/../../global/vpc"
   mock_outputs = {
     public_subnet_ids = ["gotchai-public-subnet-1", "gotchai-public-subnet-2"]
   }
@@ -42,6 +42,6 @@ inputs = {
     sudo chmod +x /usr/local/bin/docker-compose
   EOF
   key_name              = "gotchai-key"
-  security_group_ids = [dependency.security_group.outputs.id]
+  security_group_ids    = [dependency.security_group.outputs.id]
   create_security_group = false
 }

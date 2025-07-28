@@ -1,4 +1,4 @@
-include {
+include "root" {
   path = find_in_parent_folders()
 }
 
@@ -7,7 +7,7 @@ terraform {
 }
 
 dependency "vpc" {
-  config_path = "../../vpc"
+  config_path = "${get_parent_terragrunt_dir()}/../../global/vpc"
   mock_outputs = {
     vpc_id = "gotchai-vpc"
   }
