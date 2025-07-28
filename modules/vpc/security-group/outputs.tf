@@ -1,3 +1,3 @@
-output "security_group_id" {
+output "id" {
   value = module.security-group.security_group_id
 }

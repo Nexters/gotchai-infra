@@ -44,6 +44,11 @@ variable "create_security_group" {
   default = true
 }
 
+variable "user_data" {
+  type     = string
+  nullable = true
+}
+
 variable "env" {
   type = string
 

@@ -9,32 +9,39 @@ terraform {
 dependency "vpc" {
   config_path = "../../vpc"
   mock_outputs = {
-    public_subnet_ids = ["mock-public-subnet-1", "mock-public-subnet-2"]
+    public_subnet_ids = ["gotchai-public-subnet-1", "gotchai-public-subnet-2"]
   }
 }
 
 dependency "role" {
   config_path = "../role"
   mock_outputs = {
-    instance_profile_name = "mock-instance-profile"
+    instance_profile_name = "gotchai-instance-profile"
   }
 }
 
 dependency "security_group" {
   config_path = "../security-group"
   mock_outputs = {
-    security_group_id = "mock_security_group"
+    id = "gotchai-security-group"
   }
 }
 
 inputs = {
-  name                  = "gotchai-server-dev"
+  name                  = "gotchai-dev-server"
   ami                   = "ami-0f5e205427609c732"
   instance_type         = "t2.micro"
   subnet_id             = dependency.vpc.outputs.public_subnet_ids[0]
   iam_instance_profile  = dependency.role.outputs.instance_profile_name
   is_public             = true
+  user_data             = <<-EOF
+    sudo dnf install -y docker
+    sudo systemctl enable --now docker
+    sudo usermod -aG docker ec2-user
+    sudo curl -L "https://github.com/docker/compose/releases/download/v2.6.0/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
+    sudo chmod +x /usr/local/bin/docker-compose
+  EOF
   key_name              = "gotchai-key"
-  security_group_ids = [dependency.security_group.outputs.security_group_id]
+  security_group_ids = [dependency.security_group.outputs.id]
   create_security_group = false
 }
