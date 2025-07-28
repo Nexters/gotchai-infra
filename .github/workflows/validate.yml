@@ -9,6 +9,14 @@ env:
   TERRAFORM_VERSION: 1.12.2
   TERRAGRUNT_VERSION: 0.83.2
 jobs:
+  validate-hcl:
+    name: Validate HCL
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v4
+    - name: Validate HCL
+      run: terragrunt hcl validate --all
   plan-infra:
     name: Plan infra
     runs-on: ubuntu-latest
