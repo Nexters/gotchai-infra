@@ -35,6 +35,7 @@ inputs = {
   iam_instance_profile  = dependency.role.outputs.instance_profile_name
   is_public             = true
   user_data             = <<-EOF
+    #!/bin/bash
     sudo dnf install -y docker
     sudo systemctl enable --now docker
     sudo usermod -aG docker ec2-user
