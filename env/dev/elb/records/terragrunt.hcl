@@ -31,6 +31,14 @@ inputs = {
         name    = dependency.alb.outputs.dns_name
         zone_id = dependency.alb.outputs.zone_id
       }
+    },
+    {
+      name = "api-docs"
+      type = "A"
+      alias = {
+        name    = dependency.alb.outputs.dns_name
+        zone_id = dependency.alb.outputs.zone_id
+      }
     }
   ]
 }
