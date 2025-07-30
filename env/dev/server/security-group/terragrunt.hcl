@@ -25,6 +25,18 @@ inputs = {
       cidr_blocks = "0.0.0.0/0"
     },
     {
+      from_port   = 8080
+      to_port     = 8080
+      protocol    = "TCP"
+      cidr_blocks = "0.0.0.0/0"
+    },
+    {
+      from_port   = 9090
+      to_port     = 9090
+      protocol    = "TCP"
+      cidr_blocks = "0.0.0.0/0"
+    },
+    {
       from_port   = 6379
       to_port     = 6379
       protocol    = "TCP"

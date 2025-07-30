@@ -41,7 +41,7 @@ inputs = {
   subnet_ids         = dependency.vpc.outputs.public_subnet_ids
   security_group_ids = [dependency.security_group.outputs.id]
   listeners = {
-    server-http = {
+    http = {
       port     = 80
       protocol = "HTTP"
       redirect = {
@@ -50,13 +50,32 @@ inputs = {
         status_code = "HTTP_301"
       }
     }
-    server-https = {
+    https = {
       port            = 443
       protocol        = "HTTPS"
       certificate_arn = dependency.acm.outputs.arn
 
       forward = {
         target_group_key = "server"
+      }
+
+      rules = {
+        api-docs-host = {
+          priority = 100
+          actions = [
+            {
+              type             = "forward"
+              target_group_key = "swagger"
+            }
+          ]
+          conditions = [
+            {
+              host_header = {
+                values = ["api-docs.gotchai-ai.com"]
+              }
+            }
+          ]
+        }
       }
     }
   }
@@ -70,6 +89,19 @@ inputs = {
 
       health_check = {
         path     = "/ping"
+        port     = "traffic-port"
+        protocol = "HTTP"
+      }
+    }
+    swagger = {
+      name_prefix = "h1"
+      protocol    = "HTTP"
+      port        = 9090
+      target_type = "instance"
+      target_id   = dependency.ec2.outputs.instance_ids[0]
+
+      health_check = {
+        path     = "/"
         port     = "traffic-port"
         protocol = "HTTP"
       }
