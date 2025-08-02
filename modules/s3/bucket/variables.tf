@@ -19,6 +19,11 @@ variable "object_ownership" {
   type = string
 }
 
+variable "enable_version" {
+  type = bool
+  default = false
+}
+
 variable "env" {
   type = string
 

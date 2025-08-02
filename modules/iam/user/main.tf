@@ -5,6 +5,7 @@ module "iam_user" {
   policy_arns             = var.policy_arns
   force_destroy           = true
   password_reset_required = false
+  create_iam_access_key = false
 
   tags = {
     CreatedBy   = "Terraform"
