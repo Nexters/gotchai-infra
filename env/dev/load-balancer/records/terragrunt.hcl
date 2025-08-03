@@ -6,8 +6,8 @@ terraform {
   source = "${get_parent_terragrunt_dir()}/../../modules/route53/records"
 }
 
-dependency "alb" {
-  config_path = "../alb"
+dependency "elb" {
+  config_path = "../elb"
   mock_outputs = {
     dns_name = "gothcai-ai.com"
     zone_id  = "GOTCHAI"
@@ -28,16 +28,16 @@ inputs = {
       name = "dev-api"
       type = "A"
       alias = {
-        name    = dependency.alb.outputs.dns_name
-        zone_id = dependency.alb.outputs.zone_id
+        name    = dependency.elb.outputs.dns_name
+        zone_id = dependency.elb.outputs.zone_id
       }
     },
     {
       name = "api-docs"
       type = "A"
       alias = {
-        name    = dependency.alb.outputs.dns_name
-        zone_id = dependency.alb.outputs.zone_id
+        name    = dependency.elb.outputs.dns_name
+        zone_id = dependency.elb.outputs.zone_id
       }
     }
   ]

@@ -1,3 +1,7 @@
+provider "aws" {
+  region = var.region
+}
+
 module "acm" {
   source = "terraform-aws-modules/acm/aws"
 

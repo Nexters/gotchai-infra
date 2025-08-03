@@ -1,4 +1,4 @@
-module "s3_bucket" {
+module "bucket" {
   source = "terraform-aws-modules/s3-bucket/aws"
 
   bucket                   = var.name
@@ -6,7 +6,7 @@ module "s3_bucket" {
   control_object_ownership = var.control_object_ownership
   object_ownership         = var.object_ownership
   versioning = {
-    enabled = true
+    enabled = var.enable_version
   }
 
   tags = {
