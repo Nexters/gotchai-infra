@@ -19,9 +19,14 @@ variable "origins" {
   type = map(any)
 }
 
+variable "origin_access_control" {
+  type = map(any)
+}
+
 variable "default_root_object" {
   type = string
   nullable = true
+  default = null
 }
 
 variable "default_cache_behavior" {
@@ -29,8 +34,8 @@ variable "default_cache_behavior" {
 }
 
 variable "custom_error_responses" {
-  type = list(any)
-  default = []
+  type = any
+  default = {}
 }
 
 variable "certificate_arn" {

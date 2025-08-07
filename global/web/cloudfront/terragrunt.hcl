@@ -21,7 +21,7 @@ dependency "bucket" {
 }
 
 dependency "acm" {
-  config_path = "../acm"
+  config_path = "../../certificate/us"
   mock_outputs = {
     arn = "arn:aws:acm:us-east-1:123456789012:certificate/gotchai"
   }
@@ -35,8 +35,16 @@ inputs = {
   origins = {
     web_bucket = {
       domain_name           = dependency.bucket.outputs.domain_name
-      origin_access_control = "s3"
+      origin_access_control = "web"
     }
+  }
+  origin_access_control = {
+  "web": {
+    "description": "Gotchai web",
+    "origin_type": "s3",
+    "signing_behavior": "always",
+    "signing_protocol": "sigv4"
+  }
   }
   default_root_object = "index.html"
   default_cache_behavior = {

@@ -9,6 +9,7 @@ module "cloudfront" {
   retain_on_delete    = false
   wait_for_deployment = true
   create_origin_access_control = true
+  origin_access_control = var.origin_access_control
 
   origin = var.origins
   default_cache_behavior = var.default_cache_behavior
