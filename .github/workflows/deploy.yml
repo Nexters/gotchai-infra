@@ -57,7 +57,7 @@ jobs:
           "embeds": [
             {
               "title": "**인프라 ${{ github.ref_name == 'prod' && '프로덕션' || '개발' }} 환경 배포 ${{ needs.deploy-infra.result == 'success' && '성공' || '실패' }}**",
-              "description": ${{ needs.deploy-infra.result == 'success' && 'AWS 인프라가 성공적으로 배포되었습니다.' || 'AWS 인프라 배포에 실패했습니다.' }},
+              "description": "${{ needs.deploy-infra.result == 'success' && 'AWS 인프라가 성공적으로 배포되었습니다.' || 'AWS 인프라 배포에 실패했습니다.' }}",
               "color": ${{ needs.deploy-infra.result == 'success' && 3066993 || 15158332 }},
               "fields": [
                 {
