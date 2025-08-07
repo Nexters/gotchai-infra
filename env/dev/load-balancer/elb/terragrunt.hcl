@@ -15,7 +15,7 @@ dependency "vpc" {
 }
 
 dependency "acm" {
-  config_path = "${get_parent_terragrunt_dir()}/../../global/certificate"
+  config_path = "${get_parent_terragrunt_dir()}/../../global/certificate/ap"
   mock_outputs = {
     arn = "arn:aws:acm:ap-northeast-2:123456789012:certificate/gotchai"
   }

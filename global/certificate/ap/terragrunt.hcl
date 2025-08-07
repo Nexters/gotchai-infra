@@ -7,7 +7,7 @@ terraform {
 }
 
 dependency "zone" {
-  config_path = "../domain/zone"
+  config_path = "../../domain/zone"
   mock_outputs = {
     zone_id   = "GOTCHAI"
     zone_name = "gotchai-ai.com"
