@@ -18,6 +18,8 @@ module "rds" {
   subnet_ids             = var.subnet_ids
   vpc_security_group_ids = var.security_group_ids
   publicly_accessible    = var.is_public
+  manage_master_user_password_rotation = var.is_password_rotation
+  master_user_password_rotation_automatically_after_days = var.password_rotation_period
   deletion_protection    = true
 
   tags = {

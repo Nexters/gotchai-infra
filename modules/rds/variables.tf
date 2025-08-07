@@ -35,6 +35,16 @@ variable "security_group_ids" {
   default = []
 }
 
+variable "is_password_rotation" {
+  type = bool
+  default = true
+}
+
+variable "password_rotation_period" {
+  type = number
+  default = 7
+}
+
 variable "is_public" {
   type    = bool
   default = false
