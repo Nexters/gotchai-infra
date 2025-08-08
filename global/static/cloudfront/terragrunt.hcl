@@ -3,11 +3,11 @@ include "root" {
 }
 
 terraform {
-  source = "${get_parent_terragrunt_dir()}/../../modules/cloudfront"
+  source = "${get_parent_terragrunt_dir()}/../modules/cloudfront"
 }
 
 dependency "zone" {
-  config_path = "${get_parent_terragrunt_dir()}/../../global/domain/zone"
+  config_path = "../../domain/zone"
   mock_outputs = {
     zone_name = "gotchai-ai.com"
   }
@@ -16,31 +16,31 @@ dependency "zone" {
 dependency "bucket" {
   config_path = "../s3/bucket"
   mock_outputs = {
-    domain_name = "gotchai-static.s3.amazonaws.com"
+    regional_domain_name = "gotchai-static.s3.ap-northeast-2.amazonaws.com"
   }
 }
 
 dependency "acm" {
-  config_path = "${get_parent_terragrunt_dir()}/../../global/certificate/us"
+  config_path = "../../certificate/us"
   mock_outputs = {
     arn = "arn:aws:acm:us-east-1:123456789012:certificate/gotchai"
   }
 }
 
 inputs = {
-  domains     = ["dev-static.gotchai-ai.com"]
-  comment     = "gotchai-dev-static"
+  domains     = ["static.gotchai-ai.com"]
+  comment     = "gotchai-static"
   price_class = "PriceClass_100"
   zone_name   = dependency.zone.outputs.zone_name
   origins = {
     static_bucket = {
-      domain_name           = dependency.bucket.outputs.domain_name
+      domain_name           = dependency.bucket.outputs.regional_domain_name
       origin_access_control = "static"
     }
   }
   origin_access_control = {
     "static": {
-      "description": "Gotchai web",
+      "description": "Gotchai static resources",
       "origin_type": "s3",
       "signing_behavior": "always",
       "signing_protocol": "sigv4"

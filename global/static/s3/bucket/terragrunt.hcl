@@ -3,11 +3,11 @@ include "root" {
 }
 
 terraform {
-  source = "${get_parent_terragrunt_dir()}/../../modules/s3/bucket"
+  source = "${get_parent_terragrunt_dir()}/../modules/s3/bucket"
 }
 
 inputs = {
-  name                     = "gotchai-dev-static"
+  name                     = "gotchai-static"
   acl                      = "private"
   control_object_ownership = true
   object_ownership         = "ObjectWriter"

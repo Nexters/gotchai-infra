@@ -16,7 +16,7 @@ dependency "zone" {
 dependency "bucket" {
   config_path = "../s3/bucket"
   mock_outputs = {
-    domain_name = "gotchai-web.s3.amazonaws.com"
+    regional_domain_name = "gotchai-web.s3.ap-northeast-2.amazonaws.com"
   }
 }
 
@@ -34,7 +34,7 @@ inputs = {
   zone_name   = dependency.zone.outputs.zone_name
   origins = {
     web_bucket = {
-      domain_name           = dependency.bucket.outputs.domain_name
+      domain_name           = dependency.bucket.outputs.regional_domain_name
       origin_access_control = "web"
     }
   }
