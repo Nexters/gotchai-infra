@@ -3,13 +3,13 @@ include "root" {
 }
 
 terraform {
-  source = "${get_parent_terragrunt_dir()}/../../modules/s3/policy"
+  source = "${get_parent_terragrunt_dir()}/../modules/s3/policy"
 }
 
 dependency "bucket" {
   config_path = "../bucket"
   mock_outputs = {
-    id = "gotchai-dev-static"
+    id = "gotchai-static"
   }
 }
 

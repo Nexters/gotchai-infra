@@ -3,11 +3,11 @@ include "root" {
 }
 
 terraform {
-  source = "${get_parent_terragrunt_dir()}/../../modules/cloudfront"
+  source = "${get_parent_terragrunt_dir()}/../modules/cloudfront"
 }
 
 dependency "zone" {
-  config_path = "${get_parent_terragrunt_dir()}/../../global/domain/zone"
+  config_path = "../../domain/zone"
   mock_outputs = {
     zone_name = "gotchai-ai.com"
   }
@@ -21,15 +21,15 @@ dependency "bucket" {
 }
 
 dependency "acm" {
-  config_path = "${get_parent_terragrunt_dir()}/../../global/certificate/us"
+  config_path = "../../certificate/us"
   mock_outputs = {
     arn = "arn:aws:acm:us-east-1:123456789012:certificate/gotchai"
   }
 }
 
 inputs = {
-  domains     = ["dev-static.gotchai-ai.com"]
-  comment     = "gotchai-dev-static"
+  domains     = ["static.gotchai-ai.com"]
+  comment     = "gotchai-static"
   price_class = "PriceClass_100"
   zone_name   = dependency.zone.outputs.zone_name
   origins = {
@@ -40,7 +40,7 @@ inputs = {
   }
   origin_access_control = {
     "static": {
-      "description": "Gotchai web",
+      "description": "Gotchai static resources",
       "origin_type": "s3",
       "signing_behavior": "always",
       "signing_protocol": "sigv4"
