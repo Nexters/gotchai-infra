@@ -19,13 +19,7 @@ variable "listeners" {
 }
 
 variable "target_groups" {
-  type = map(object({
-    name_prefix = optional(string)
-    protocol    = string
-    port        = number
-    target_type = string
-    target_id = optional(string)
-  }))
+  type = map(any)
 }
 
 variable "env" {
