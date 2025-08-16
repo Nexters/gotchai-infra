@@ -39,12 +39,12 @@ inputs = {
     }
   }
   origin_access_control = {
-  "web": {
-    "description": "Gotchai web",
-    "origin_type": "s3",
-    "signing_behavior": "always",
-    "signing_protocol": "sigv4"
-  }
+    "web" : {
+      "description" : "Gotchai web",
+      "origin_type" : "s3",
+      "signing_behavior" : "always",
+      "signing_protocol" : "sigv4"
+    }
   }
   default_root_object = "index.html"
   default_cache_behavior = {

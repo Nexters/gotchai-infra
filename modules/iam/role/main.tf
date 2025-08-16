@@ -1,5 +1,6 @@
 module "iam-assumable-role" {
   source = "terraform-aws-modules/iam/aws//modules/iam-assumable-role"
+  version = "5.60.0"
 
   role_name               = var.name
   trusted_role_services   = var.services

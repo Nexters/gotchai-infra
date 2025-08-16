@@ -39,11 +39,11 @@ inputs = {
     }
   }
   origin_access_control = {
-    "static": {
-      "description": "Gotchai static resources",
-      "origin_type": "s3",
-      "signing_behavior": "always",
-      "signing_protocol": "sigv4"
+    "static" : {
+      "description" : "Gotchai static resources",
+      "origin_type" : "s3",
+      "signing_behavior" : "always",
+      "signing_protocol" : "sigv4"
     }
   }
   default_cache_behavior = {
