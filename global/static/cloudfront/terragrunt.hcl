@@ -49,6 +49,8 @@ inputs = {
   default_cache_behavior = {
     target_origin_id       = "static_bucket"
     viewer_protocol_policy = "allow-all"
+    cache_policy_name      = "Managed-CachingOptimized"
+    use_forwarded_values = false
 
     allowed_methods = ["GET", "HEAD", "OPTIONS"]
     cached_methods  = ["GET", "HEAD"]
