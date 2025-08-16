@@ -14,7 +14,7 @@ dependency "vpc" {
 }
 
 dependency "role" {
-  config_path = "../role"
+  config_path = "${get_parent_terragrunt_dir()}/../../global/server/role"
   mock_outputs = {
     instance_profile_name = "gotchai-instance-profile"
   }
