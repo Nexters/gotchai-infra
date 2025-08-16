@@ -6,7 +6,7 @@ module "iam-assumable-role" {
   trusted_role_services   = var.services
   custom_role_policy_arns = var.policy_arns
   number_of_custom_role_policy_arns = length(var.policy_arns)
-  create_role             = length(data.aws_iam_role.existing_role.id) == 0
+  create_role             = true
   create_instance_profile = var.create_instance_profile
   role_requires_mfa       = false
 
@@ -14,8 +14,4 @@ module "iam-assumable-role" {
     CreatedBy   = "Terraform"
     Environment = var.env
   }
-}
-
-data "aws_iam_role" "existing_role" {
-  name = var.name
 }
