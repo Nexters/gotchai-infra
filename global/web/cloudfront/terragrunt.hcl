@@ -51,10 +51,10 @@ inputs = {
     target_origin_id       = "web_bucket"
     cache_policy_name      = "Managed-CachingOptimized"
     viewer_protocol_policy = "redirect-to-https"
-    use_forwarded_values = false
-    allowed_methods = ["GET", "HEAD", "OPTIONS"]
-    cached_methods  = ["GET", "HEAD"]
-    query_string    = true
+    use_forwarded_values   = false
+    allowed_methods        = ["GET", "HEAD", "OPTIONS"]
+    cached_methods         = ["GET", "HEAD"]
+    query_string           = true
   }
   custom_error_responses = [
     {

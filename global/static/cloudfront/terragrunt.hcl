@@ -50,10 +50,10 @@ inputs = {
     target_origin_id       = "static_bucket"
     viewer_protocol_policy = "redirect-to-https"
     cache_policy_name      = "Managed-CachingOptimized"
-    use_forwarded_values = false
-    allowed_methods = ["GET", "HEAD", "OPTIONS"]
-    cached_methods  = ["GET", "HEAD"]
-    compress        = true
+    use_forwarded_values   = false
+    allowed_methods        = ["GET", "HEAD", "OPTIONS"]
+    cached_methods         = ["GET", "HEAD"]
+    compress               = true
   }
   certificate_arn = dependency.acm.outputs.arn
 }
