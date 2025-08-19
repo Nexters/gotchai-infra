@@ -39,22 +39,22 @@ inputs = {
     }
   }
   origin_access_control = {
-    "web" : {
-      "description" : "Gotchai web",
-      "origin_type" : "s3",
-      "signing_behavior" : "always",
-      "signing_protocol" : "sigv4"
+    web = {
+      description      = "Gotchai web",
+      origin_type      = "s3",
+      signing_behavior = "always",
+      signing_protocol = "sigv4"
     }
   }
   default_root_object = "index.html"
   default_cache_behavior = {
     target_origin_id       = "web_bucket"
-    viewer_protocol_policy = "allow-all"
-
-    allowed_methods = ["GET", "HEAD", "OPTIONS"]
-    cached_methods  = ["GET", "HEAD"]
-    compress        = true
-    query_string    = true
+    cache_policy_name      = "Managed-CachingOptimized"
+    viewer_protocol_policy = "redirect-to-https"
+    use_forwarded_values   = false
+    allowed_methods        = ["GET", "HEAD", "OPTIONS"]
+    cached_methods         = ["GET", "HEAD"]
+    query_string           = true
   }
   custom_error_responses = [
     {
